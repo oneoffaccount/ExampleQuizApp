@@ -148,9 +148,7 @@ function optionSelect(e) {
     var tmpButton = $(e.target.id.replace("option", "btn"));
 
     tmpButton.style.backgroundColor = "#1aff1a";
-    alert("HERE: " + tmpButton.id);
     selectedAnswer = parseInt( tmpButton.id.replace("btn", ""), 10);
-    alert("HERE1: " + selectedAnswer);
 }
 
 /** Submit Button */
