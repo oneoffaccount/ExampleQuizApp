@@ -34,10 +34,141 @@ var timerText;
 function setQuestion(currentQuestion, currentQuesitonIndex) {
     var ques = questions[currentQuestionIndex];
     questionP.textContent = (currentQuestion+1) + ". " + ques.question;
-    option1Span.textContent = question.option1;
-    option2Span.textContent = question.option2;
-    option3Span.textContent = question.option3;
-    option4Span.textContent = question.option4;
+    option1Span.textContent = ques.option1;
+    option2Span.textContent = ques.option2;
+    option3Span.textContent = ques.option3;
+    option4Span.textContent = ques.option4;
 }
 
-function changeProgressBar(currentQuestion) 
+function changeProgressBar(currentQuestion) {
+    progressP.innerHTML = "Question " + (currentQuestion+1) + " of 10";
+    currentQuestionCircle = $("no" + (currentQuestion+1));
+    currentQuestionCircle.style.backgroundColor = "#cc7a00";
+}
+
+function defaultOptionColors() {
+    btn1.style.backgroundColor = unselectedButtonColor;
+    btn2.style.backgroundColor = unselectedButtonColor;
+    btn3.style.backgroundColor = unselectedButtonColor;
+    btn4.style.backgroundColor = unselectedButtonColor;
+}
+
+function getQuestion(currentQuestion, currentQuestionIndex){
+    selectedAnswer = null; //new question, clear the previous selectedAnswer
+    if(currentQuestion == 9) { //last question
+        submit.innerHTML = "Submit Test";
+        submit.style.backgroundColor = "#00b300";
+    }
+    if(currentQuestion > 9) { //shouldn't get here
+        return;
+    }
+    setQuestion(currentQuestion, currentQuestionIndex);
+    changeProgressBar(currentQuestion);
+    defaultOptionColors();
+
+    startTimer(secsInput, "timer");
+}
+
+function setCorrect() {
+    userScore++;
+    currentQuestionCircle.style.backgroundColor = "#009900";
+}
+
+function setWrong() {
+    currentQuestionCircle.style.backgroundColor = "#cc0000";
+}
+
+function finalScore() {
+    if(userScore > 5){
+        resultP.innerHTML = "Congrats! You Passed!<br/>Your score is " + userScore + "!";
+    } else {
+        resultP.innerHTML = "Sorry. You failed.<br/> Your score is " + userScore + ".";
+    }
+}
+
+function setResultPage() {
+    quizSetDiv.style.display = "none";
+    resultBoxDiv.style.display = "block";
+    progress.innerHTML = "Quiz Completed";
+    timer.textContent = "00:00";
+    finalScore();
+}
+
+function randomGenerator() {
+    currentQuestionIndex = Math.floor(Math.random() * questions.length);
+    while( questionIndexList.indexOf(currentQuestionIndex) != -1)
+    {
+        currentQuestionIndex = Math.floor(Math.random() * questions.length);
+    }
+    questionIndexList.push(currentQuestionIndex);
+    return currentQuestionIndex;
+}
+
+function nextPage() {
+    clearTimeout(countDown);
+    secs = secsInput;
+
+    if(selectedAnswer === questions[currentQuestionIndex].answer) {
+        setCorrect();
+    } else {
+        setWrong();
+    }
+
+    if(currentQuestion == 9){
+        setResultPage();
+    } else {
+        getQuestion(++currentQuestion, randomGenerator());
+    }
+}
+
+function startTimer(secs, elem) {
+    timerText = $(elem);
+    var extraZero = "";
+    if((""+secs).length == 1) {
+        extraZero = "0";
+    }
+    timerText.innerHTML = "00:" + extraZero + secs;
+
+    if(secs<0){ //countdown has reached 0
+        nextPage();
+    } else { //continue the countdown
+        secs--;
+        countDown = setTimeout('startTimer('+secs+',"'+elem+'")', 1000);
+    }
+}
+
+/** Answer Buttons */
+btn1.addEventListener("click", optionSelect);
+btn2.addEventListener("click", optionSelect);
+btn3.addEventListener("click", optionSelect);
+btn4.addEventListener("click", optionSelect);
+
+function optionSelect(e) {
+    defaultOptionColors();
+    var tmpButton = $(e.target.id.replace("option", "btn"));
+
+    tmpButton.style.backgroundColor = "#1aff1a";
+    alert("HERE: " + tmpButton.id);
+    selectedAnswer = parseInt( tmpButton.id.replace("btn", ""), 10);
+    alert("HERE1: " + selectedAnswer);
+}
+
+/** Submit Button */
+submit.addEventListener("click", nextQuestion);
+
+function nextQuestion() {
+    if(selectedAnswer == null) { //no option selected
+        alert("Please select an option");
+        return;
+    }
+    nextPage();
+}
+
+/** retake test button */
+retakeButton.addEventListener("click", retakeTest);
+
+function retakeTest() {
+    window.location.reload();
+}
+
+window.onload = getQuestion(currentQuestion, randomGenerator());

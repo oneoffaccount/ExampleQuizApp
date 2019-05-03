@@ -1,0 +1,95 @@
+var questions = [
+    
+    {question:"1?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+    
+     {question:"2?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"3?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"4?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"5?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"6?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"7?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"8?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"9?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"10?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"11?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"12?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1},
+
+     {question:"13?",
+     option1: "1",
+     option2: "2",
+     option3: "3",
+     option4:"4",
+     answer:1}
+
+
+]
