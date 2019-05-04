@@ -27,7 +27,7 @@ var btn4 = $("btn4");
 
 var currentQuestionCircle;
 var countDown;
-var secsInput = 30;
+var secsInput = 10;
 var seconds = secsInput;
 var timerText;
 
